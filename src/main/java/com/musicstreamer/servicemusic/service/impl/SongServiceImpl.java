@@ -2,7 +2,7 @@ package com.musicstreamer.servicemusic.service.impl;
 
 import com.musicstreamer.servicemusic.repo.SongRepo;
 import com.musicstreamer.servicemusic.repo.model.Song;
-import com.musicstreamer.servicemusic.service.impl.TagServiceImpl;
+import com.musicstreamer.servicetags.service.impl.TagServiceImpl;
 import com.musicstreamer.servicemusic.service.SongService;
 
 import lombok.RequiredArgsConstructor;
