@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicemusic
+spec:
+  selector:
+    app: servicemusic
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      nodePort: 31000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicemusic
+spec:
+  selector:
+    matchLabels:
+      app: servicemusic
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: servicemusic
+    spec:
+      containers:
+        - name: server
+          image: serhiyyarovyiiasa/servicemusic
+          ports:
+            - name: http
+              containerPort: 8080
+
+---
