@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicetags
+spec:
+  selector:
+    app: servicetags
+  type: NodePort
+  ports:
+    - name: http
+      port: 8082
+      nodePort: 31222
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicetags
+spec:
+  selector:
+    matchLabels:
+      app: servicetags
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: servicetags
+    spec:
+      containers:
+        - name: server
+          image: serhiyyarovyiiasa/servicetags
+          ports:
+            - name: http
+              containerPort: 8082
+
+---

@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: serviceplaylist
+spec:
+  selector:
+    app: serviceplaylist
+  type: NodePort
+  ports:
+    - name: http
+      port: 8081
+      nodePort: 31111
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serviceplaylist
+spec:
+  selector:
+    matchLabels:
+      app: serviceplaylist
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: serviceplaylist
+    spec:
+      containers:
+        - name: server
+          image: serhiyyarovyiiasa/serviceplaylist
+          ports:
+            - name: http
+              containerPort: 8081
+
+---
