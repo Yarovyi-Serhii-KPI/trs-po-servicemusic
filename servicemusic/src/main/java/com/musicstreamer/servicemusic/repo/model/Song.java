@@ -13,17 +13,17 @@ public final class Song {
     private String author;
     private int length;
     private int score;
-    private List<Integer> tags;
+    private int playlist;
 
     public Song() {
     }
 
-    public Song(String name, String author, int length, int score, List<Integer> tags) {
+    public Song(String name, String author, int length, int score, int playlist) {
         this.name = name;
         this.author = author;
         this.length = length;
         this.score = score;
-        this.tags = tags;
+        this.playlist = playlist;
     }
 
     public long getId() {
@@ -66,11 +66,11 @@ public final class Song {
         this.score = score;
     }
 
-    public List<Integer> getTags() {
-        return tags;
+    public int getPlaylist() {
+        return playlist;
     }
 
-    public void setTags(List<Integer> tags) {
-        this.tags = tags;
+    public void setPlaylist(int playlist) {
+        this.playlist = playlist;
     }
 }

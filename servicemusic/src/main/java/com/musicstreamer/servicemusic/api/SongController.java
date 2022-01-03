@@ -41,8 +41,8 @@ public class SongController {
         final String author = songDto.author();
         final int length = songDto.length();
         final int score = songDto.score();
-        final List<Integer> tags = songDto.tags();
-        final long songId = songServiceImpl.createSong(name, author, length, score, tags);
+        final int playlist = songDto.playlist();
+        final long songId = songServiceImpl.createSong(name, author, length, score, playlist);
         final String songURI = String.format("/songs/%d", songId);
 
         return ResponseEntity.created(URI.create(songURI)).build();
@@ -54,10 +54,10 @@ public class SongController {
         final String author = songDto.author();
         final int length = songDto.length();
         final int score = songDto.score();
-        final List<Integer> tags = songDto.tags();
+        final int playlist = songDto.playlist();
 
         try {
-            songServiceImpl.updateSong(id, name, author, length, score, tags);
+            songServiceImpl.updateSong(id, name, author, length, score, playlist);
 
             return ResponseEntity.noContent().build();
         } catch (IllegalArgumentException e) {

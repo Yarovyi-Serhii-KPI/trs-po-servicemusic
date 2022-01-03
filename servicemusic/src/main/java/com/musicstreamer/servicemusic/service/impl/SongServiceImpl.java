@@ -28,14 +28,14 @@ public final class SongServiceImpl implements SongService{
             throw new IllegalArgumentException("Invalid song ID");
     }
 
-    public long createSong(String name, String author, int length, int score, List<Integer> tags) {
-        final Song song = new Song(name, author, length, score, tags);
+    public long createSong(String name, String author, int length, int score, int playlist) {
+        final Song song = new Song(name, author, length, score, playlist);
         final Song savedSong = songRepo.save(song);
 
         return savedSong.getId();
     }
 
-    public void updateSong(long id, String name, String author, int length, int score, List<Integer> tags) throws IllegalArgumentException {
+    public void updateSong(long id, String name, String author, int length, int score, int playlist) throws IllegalArgumentException {
         final Optional<Song> optSong = songRepo.findById(id);
 
         if (optSong.isEmpty())
@@ -46,8 +46,8 @@ public final class SongServiceImpl implements SongService{
         if (author != null && !author.isBlank()) song.setAuthor(author);
         if (length > 0) song.setLength(length);
         song.setScore(score);
-        if (tags != null && !tags.isEmpty()){
-            song.setTags(tags);
+        if (playlist > 0){
+            song.setPlaylist(playlist);
         }
         songRepo.save(song);
     }

@@ -11,15 +11,13 @@ public final class Playlist {
     private long id;
     private String name;
     private int size;
-    private List<Integer> songs;
 
     public Playlist() {
     }
 
-    public Playlist(String name, int size, List<Integer> songs) {
+    public Playlist(String name, int size) {
         this.name = name;
         this.size = size;
-        this.songs = songs;
     }
 
     public long getId() {
@@ -44,13 +42,5 @@ public final class Playlist {
 
     public void setSize(int size) {
         this.size = size;
-    }
-
-    public List<Integer> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(List<Integer> songs) {
-        this.songs = songs;
     }
 }

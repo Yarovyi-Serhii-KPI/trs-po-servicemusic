@@ -28,14 +28,14 @@ public final class TagServiceImpl implements TagService {
             throw new IllegalArgumentException("Invalid tag ID");
     }
 
-    public long createTag(String name) {
-        final Tag tag = new Tag(name);
+    public long createTag(String name, int song) {
+        final Tag tag = new Tag(name,song);
         final Tag savedTag = tagRepo.save(tag);
 
         return savedTag.getId();
     }
 
-    public void updateTag(long id, String name) throws IllegalArgumentException {
+    public void updateTag(long id, String name, int song) throws IllegalArgumentException {
         final Optional<Tag> optTag = tagRepo.findById(id);
 
         if (optTag.isEmpty())
@@ -43,6 +43,7 @@ public final class TagServiceImpl implements TagService {
 
         final Tag tag = optTag.get();
         if (name != null && !name.isBlank()) tag.setName(name);
+        if (song > 0) tag.setSong(song);
         tagRepo.save(tag);
     }
 

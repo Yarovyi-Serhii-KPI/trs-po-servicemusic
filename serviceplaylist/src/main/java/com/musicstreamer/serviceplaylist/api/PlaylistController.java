@@ -39,8 +39,7 @@ public class PlaylistController {
     public ResponseEntity<Void> create(@RequestBody PlaylistDto playlistDto){
         final String name = playlistDto.name();
         final int size = playlistDto.size();
-        final List<Integer> songs = playlistDto.songs();
-        final long playlistId = playlistServiceImpl.createPlaylist(name, size, songs);
+        final long playlistId = playlistServiceImpl.createPlaylist(name, size);
         final String playlistURI = String.format("/playlists/%d", playlistId);
 
         return ResponseEntity.created(URI.create(playlistURI)).build();
@@ -50,10 +49,9 @@ public class PlaylistController {
     public ResponseEntity<Void> change(@PathVariable long id, @RequestBody PlaylistDto playlistDto) {
         final String name = playlistDto.name();
         final int size = playlistDto.size();
-        final List<Integer> songs = playlistDto.songs();
 
         try {
-            playlistServiceImpl.updatePlaylist(id, name, size, songs);
+            playlistServiceImpl.updatePlaylist(id, name, size);
 
             return ResponseEntity.noContent().build();
         } catch (IllegalArgumentException e) {

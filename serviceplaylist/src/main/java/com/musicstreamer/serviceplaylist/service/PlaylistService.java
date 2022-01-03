@@ -7,8 +7,8 @@ import java.util.List;
 public interface PlaylistService {
     List<Playlist> fetchAllPlaylists();
     Playlist fetchPlaylistById(long id) throws IllegalArgumentException;
-    long createPlaylist(String name, int size, List<Integer> songs);
-    void updatePlaylist(long id, String name, int size, List<Integer> songs) throws IllegalArgumentException;
+    long createPlaylist(String name, int size);
+    void updatePlaylist(long id, String name, int size) throws IllegalArgumentException;
     void deletePlaylist(long id);
 
 }
