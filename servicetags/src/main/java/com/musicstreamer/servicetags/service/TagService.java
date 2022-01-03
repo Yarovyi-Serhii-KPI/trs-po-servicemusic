@@ -7,8 +7,8 @@ import java.util.List;
 public interface TagService {
     List<Tag> fetchAllTags();
     Tag fetchTagById(long id) throws IllegalArgumentException;
-    long createTag(String name, int song);
-    void updateTag(long id, String name, int song) throws IllegalArgumentException;
+    long createTag(String name, long song);
+    void updateTag(long id, String name) throws IllegalArgumentException;
     void deleteTag(long id);
 
 }

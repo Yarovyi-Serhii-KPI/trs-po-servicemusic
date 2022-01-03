@@ -1,11 +1,17 @@
 package com.musicstreamer.servicemusic.service.impl;
 
+import com.musicstreamer.servicemusic.api.dto.PlaylistDto;
 import com.musicstreamer.servicemusic.repo.SongRepo;
 import com.musicstreamer.servicemusic.repo.model.Song;
 import com.musicstreamer.servicemusic.service.SongService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +20,7 @@ import java.util.Optional;
 @Service
 public final class SongServiceImpl implements SongService{
     private final SongRepo songRepo;
+    private final String playlistUrl = "http://serviceplaylist:8081/playlists/";
 
     public List<Song> fetchAllSongs(){
         return songRepo.findAll();
@@ -28,14 +35,20 @@ public final class SongServiceImpl implements SongService{
             throw new IllegalArgumentException("Invalid song ID");
     }
 
-    public long createSong(String name, String author, int length, int score, int playlist) {
+    public long createSong(String name, String author, int length, int score, long playlist) {
+        final RestTemplate restTemplate = new RestTemplate();
+        final HttpEntity<Long> request = new HttpEntity<>(playlist);
+        try {
+            final ResponseEntity<PlaylistDto> response = restTemplate.exchange(playlistUrl + playlist, HttpMethod.GET, request, PlaylistDto.class);
+        } catch(HttpClientErrorException e) { throw new IllegalArgumentException(String.format("Playlist with given id = %d was not found", playlist));}
+
         final Song song = new Song(name, author, length, score, playlist);
         final Song savedSong = songRepo.save(song);
 
         return savedSong.getId();
     }
 
-    public void updateSong(long id, String name, String author, int length, int score, int playlist) throws IllegalArgumentException {
+    public void updateSong(long id, String name, String author, int length, int score) throws IllegalArgumentException {
         final Optional<Song> optSong = songRepo.findById(id);
 
         if (optSong.isEmpty())
@@ -46,9 +59,6 @@ public final class SongServiceImpl implements SongService{
         if (author != null && !author.isBlank()) song.setAuthor(author);
         if (length > 0) song.setLength(length);
         song.setScore(score);
-        if (playlist > 0){
-            song.setPlaylist(playlist);
-        }
         songRepo.save(song);
     }
 

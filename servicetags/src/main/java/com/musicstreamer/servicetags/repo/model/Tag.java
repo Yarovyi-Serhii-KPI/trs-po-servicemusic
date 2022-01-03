@@ -10,12 +10,12 @@ public final class Tag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
-    private int song;
+    private long song;
 
     public Tag() {
     }
 
-    public Tag(String name, int song) {
+    public Tag(String name, long song) {
         this.name = name;
         this.song = song;
     }
@@ -36,7 +36,7 @@ public final class Tag {
         this.name = name;
     }
 
-    public int getSong() {return song; }
+    public long getSong() {return song; }
 
-    public void setSong(int song) {this.song = song; }
+    public void setSong(long song) {this.song = song; }
 }

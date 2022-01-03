@@ -7,9 +7,9 @@ public class SongDto{
     private String author;
     private int length;
     private int score;
-    private int playlist;
+    private long playlist;
 
-    SongDto(String name, String author, int length, int score, int playlist) {
+    SongDto(String name, String author, int length, int score, long playlist) {
         this.name = name;
         this.author = author;
         this.length = length;
@@ -21,5 +21,5 @@ public class SongDto{
     public String author() { return author; }
     public int length() {return length; }
     public int score() {return score; }
-    public int playlist() {return playlist; }
+    public long playlist() {return playlist; }
 }

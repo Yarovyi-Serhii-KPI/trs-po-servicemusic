@@ -13,12 +13,12 @@ public final class Song {
     private String author;
     private int length;
     private int score;
-    private int playlist;
+    private long playlist;
 
     public Song() {
     }
 
-    public Song(String name, String author, int length, int score, int playlist) {
+    public Song(String name, String author, int length, int score, long playlist) {
         this.name = name;
         this.author = author;
         this.length = length;
@@ -66,11 +66,11 @@ public final class Song {
         this.score = score;
     }
 
-    public int getPlaylist() {
+    public long getPlaylist() {
         return playlist;
     }
 
-    public void setPlaylist(int playlist) {
+    public void setPlaylist(long playlist) {
         this.playlist = playlist;
     }
 }

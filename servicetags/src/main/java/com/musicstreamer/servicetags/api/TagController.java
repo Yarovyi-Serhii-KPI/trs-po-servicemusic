@@ -37,7 +37,7 @@ public class TagController {
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody TagDto tagDto){
         final String name = tagDto.name();
-        final int song = tagDto.song();
+        final long song = tagDto.song();
         final long tagId = tagServiceImpl.createTag(name,song);
         final String tagURI = String.format("/songs/%d", tagId);
 
@@ -47,10 +47,9 @@ public class TagController {
     @PatchMapping("/{id}")
     public ResponseEntity<Void> change(@PathVariable long id, @RequestBody TagDto tagDto) {
         final String name = tagDto.name();
-        final int song = tagDto.song();
 
         try {
-            tagServiceImpl.updateTag(id, name, song);
+            tagServiceImpl.updateTag(id, name);
 
             return ResponseEntity.noContent().build();
         } catch (IllegalArgumentException e) {
